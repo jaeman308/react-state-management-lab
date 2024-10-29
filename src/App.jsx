@@ -91,6 +91,15 @@ function App() {
     sumStrength(updatedTeam);
     sumAgility(updatedTeam);
   }
+  
+  const handleRemoveFighter = (fighter) => {
+    const updatedTeam = team.filter(member => member.name !== fighter.name);
+    setTeam (updatedTeam);
+    setMoney ((prevMoney) => prevMoney + fighter.price);
+    sumStrength(updatedTeam);
+    sumAgility(updatedTeam);
+
+  }
 
   const sumStrength = (currentTeam)=> {
    const total= currentTeam.reduce((acc, member) => acc + member.strength, 0);
@@ -122,7 +131,7 @@ function App() {
             <div>Price: {member.price}</div>
             <div>Strength: {member.strength}</div>
             <div>Agility: {member.agility}</div>
-            <button>Remove</button>
+            <button onClick={() => handleRemoveFighter(member)}>Remove</button>
           </li>
        
        ))}
