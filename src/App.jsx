@@ -116,13 +116,12 @@ function App() {
   return (
  <>
  <h1>Zombie Figheters</h1>
- <div>
-  <ul>
-    <li>Money: {money} </li>
-    <li>Team Strength:{totalStrength} </li>
-    <li>Team Agility: {totalAgility} </li>
-    <li> Team: {team.length === 0 ? ( <p>Pick some team members!</p> )
-     : (
+ <div class='teamStats'>
+   <div>Money: {money} </div>
+   <div>Team Strength:{totalStrength} </div>
+   <div>Team Agility: {totalAgility} </div>
+   <div>Team:
+     {team.length === 0 ? ( <p>Pick some team members!</p> ) : (
       <ul>
         {team.map((member, idx) => (
           <li key={idx}>
@@ -137,10 +136,9 @@ function App() {
        ))}
       </ul>
      )}       
-    </li>
-    </ul>
- </div>
- <ul>
+    </div>
+    </div>
+  <ul>
   {zombieFigthers.map((zombieFighter, idx) => (
     <li key={idx}>
   <img src={zombieFighter.img} alt={zombieFigthers.name}/>
