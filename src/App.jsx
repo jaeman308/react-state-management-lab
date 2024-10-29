@@ -5,6 +5,7 @@ import './App.css'
 function App() {
   const [team, setTeam] = useState ([]);
   const [money, setMoney] = useState(100);
+  const [totalStrength, setTotalStrength] = useState(0);
   const [zombieFigthers, setzombieFighters] = useState ([
     {
       name: 'Survivor',
@@ -80,13 +81,20 @@ function App() {
 
   const handleAddFighter = (fighter) => {
     if (money < fighter.price) {
-      console.log("Not enougn money");
+      console.log("Not enough money");
       return
     }
-    setTeam ((pervTeam) => [...pervTeam, fighter]);
+    const updatedTeam = [...team, fighter];
+    setTeam (updatedTeam);
     setMoney ((prevMoney) => prevMoney - fighter.price);
-
+    sumStrength(updatedTeam);
   }
+
+  const sumStrength = (currentTeam)=> {
+   const total= currentTeam.reduce((acc, member) => acc + member.strength, 0);
+    setTotalStrength(total);
+  };
+
 
   return (
  <>
@@ -94,9 +102,24 @@ function App() {
  <div>
   <ul>
     <li>Money: {money} </li>
-    <li>Team Strength: </li>
+    <li>Team Strength:{totalStrength} </li>
     <li>Team Agility: </li>
-    <li> Team: </li>
+    <li> Team: {team.length === 0 ? ( <p>Pick some team members!</p> )
+     : (
+      <ul>
+        {team.map((member, idx) => (
+          <li key={idx}>
+            <img src={member.img} alt={member.name} />
+            <div>{member.name}</div>
+            <div>Price: {member.price}</div>
+            <div>Strength: {member.strength}</div>
+            <div>Agility: {member.agility}</div>
+          </li>
+       
+       ))}
+      </ul>
+     )}       
+    </li>
     </ul>
  </div>
  <ul>
