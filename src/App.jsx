@@ -6,6 +6,7 @@ function App() {
   const [team, setTeam] = useState ([]);
   const [money, setMoney] = useState(100);
   const [totalStrength, setTotalStrength] = useState(0);
+  const [totalAgility, setTotalAgility] = useState(0);
   const [zombieFigthers, setzombieFighters] = useState ([
     {
       name: 'Survivor',
@@ -88,12 +89,19 @@ function App() {
     setTeam (updatedTeam);
     setMoney ((prevMoney) => prevMoney - fighter.price);
     sumStrength(updatedTeam);
+    sumAgility(updatedTeam);
   }
 
   const sumStrength = (currentTeam)=> {
    const total= currentTeam.reduce((acc, member) => acc + member.strength, 0);
     setTotalStrength(total);
   };
+
+  const sumAgility = (currentTeam) => {
+    const total = currentTeam.reduce((acc, member) => acc + member.agility, 0);
+    setTotalAgility(total);
+  }
+
 
 
   return (
@@ -103,7 +111,7 @@ function App() {
   <ul>
     <li>Money: {money} </li>
     <li>Team Strength:{totalStrength} </li>
-    <li>Team Agility: </li>
+    <li>Team Agility: {totalAgility} </li>
     <li> Team: {team.length === 0 ? ( <p>Pick some team members!</p> )
      : (
       <ul>
@@ -114,6 +122,7 @@ function App() {
             <div>Price: {member.price}</div>
             <div>Strength: {member.strength}</div>
             <div>Agility: {member.agility}</div>
+            <button>Remove</button>
           </li>
        
        ))}
