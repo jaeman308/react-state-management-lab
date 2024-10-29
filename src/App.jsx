@@ -3,7 +3,7 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const team = []
+  const [team, setTeam] = useState ([]);
   const [money, setMoney] = useState(100);
   const [zombieFigthers, setzombieFighters] = useState ([
     {
@@ -78,17 +78,36 @@ function App() {
     },
   ]);
 
+  const handleAddFighter = (fighter) => {
+    if (money < fighter.price) {
+      console.log("Not enougn money");
+      return
+    }
+    setTeam ((pervTeam) => [...pervTeam, fighter]);
+    setMoney ((prevMoney) => prevMoney - fighter.price);
+
+  }
+
   return (
  <>
  <h1>Zombie Figheters</h1>
+ <div>
+  <ul>
+    <li>Money: {money} </li>
+    <li>Team Strength: </li>
+    <li>Team Agility: </li>
+    <li> Team: </li>
+    </ul>
+ </div>
  <ul>
   {zombieFigthers.map((zombieFighter, idx) => (
     <li key={idx}>
   <img src={zombieFighter.img} alt={zombieFigthers.name}/>
-   <li>{zombieFighter.name}</li> 
-   <li>Price: {zombieFighter.price}</li>
-   <li>Strength: {zombieFighter.strength}</li> 
-   <li>Agility: { zombieFighter.agility}</li>
+   <div>{zombieFighter.name}</div> 
+   <div>Price: {zombieFighter.price}</div>
+   <div>Strength: {zombieFighter.strength}</div> 
+   <div>Agility: { zombieFighter.agility}</div>
+   <button  onClick={()=> handleAddFighter(zombieFighter)}>Add</button>
   </li>))} 
  </ul>
  </>
